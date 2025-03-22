@@ -1,2 +1,5 @@
-node_modules/\nvenv/\n.env\n__pycache__/\n
+node_modules
+venv
+.env
+__pycache__
 .DS_Store
