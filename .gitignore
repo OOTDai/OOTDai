@@ -50,3 +50,6 @@ backend/app/__pycache__/
 .env*
 
 .vscode/
+
+apis/ai/venv/
+apis/ai/.env
