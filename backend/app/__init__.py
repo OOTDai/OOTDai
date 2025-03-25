@@ -20,5 +20,8 @@ def create_app():
     def test_route():
         return {"message": "Hello! Your Flask backend is working correctly!"}, 200
 
+    from app import routes
+    app.register_blueprint(routes.bp)
+
     return app
 
