@@ -1,4 +1,9 @@
-node_modules/\nvenv/\n.env\n__pycache__/\n
+# Node modules
+node_modules/
+
+
+
+
 # MacOS
 .DS_Store
 
@@ -25,6 +30,7 @@ var/
 *.egg
 venv/
 ENV/
+.env
 .venv/
 backend/venv/
 backend/__pycache__/
@@ -34,3 +40,4 @@ backend/app/__pycache__/
 # All env files
 .env*
 
+.vscode/
