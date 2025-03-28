@@ -39,7 +39,7 @@ export default function Home() {
       // Don't clear the state here if it wasn't a valid image file,
       // let the clearImage function handle explicit clearing.
       // Reset the input ref in case an invalid file was attempted
-       if (fileInputRef.current) {
+      if (fileInputRef.current) {
         fileInputRef.current.value = '';
       }
     }
@@ -78,9 +78,9 @@ export default function Home() {
     processFile(file); // Use the unified handler
     // Clear the data transfer buffer
     if (event.dataTransfer.items) {
-        event.dataTransfer.items.clear();
+      event.dataTransfer.items.clear();
     } else {
-        event.dataTransfer.clearData();
+      event.dataTransfer.clearData();
     }
   };
 
@@ -88,10 +88,10 @@ export default function Home() {
   const triggerFileInput = () => {
     // Don't trigger if there's already an image, let the overlay handle replacement indication
     if (!imagePreviewUrl) {
-        fileInputRef.current?.click();
+      fileInputRef.current?.click();
     } else {
-        // If an image exists, clicking the area should still allow replacement
-        fileInputRef.current?.click();
+      // If an image exists, clicking the area should still allow replacement
+      fileInputRef.current?.click();
     }
   };
 
@@ -115,14 +115,16 @@ export default function Home() {
         <p className="text-lg text-gray-300 mb-6 max-w-md">
           Just a bunch of dudes coming together to create a fashion app for styling your sweet baggy jeans.
         </p>
+        <div className="text-gray-300 text-sm mt-2">
+          <p>Upload an image of an article of clothing</p>
+        </div>
       </div>
 
       {/* Image Upload Area */}
       <div className="flex flex-col items-center w-full max-w-lg my-4">
         <div
-          className={`relative w-full h-64 border-4 border-dashed rounded-lg flex flex-col items-center justify-center p-4 text-center transition-colors duration-200 ease-in-out ${
-            isDragging ? 'border-green-400 bg-blue-800 bg-opacity-50' : 'border-gray-400 hover:border-gray-300'
-          } ${imagePreviewUrl ? '' : 'cursor-pointer'}`} // Only show pointer cursor when no image
+          className={`relative w-full h-64 border-4 border-dashed rounded-lg flex flex-col items-center justify-center p-4 text-center transition-colors duration-200 ease-in-out ${isDragging ? 'border-green-400 bg-blue-800 bg-opacity-50' : 'border-gray-400 hover:border-gray-300'
+            } ${imagePreviewUrl ? '' : 'cursor-pointer'}`} // Only show pointer cursor when no image
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
           onDrop={handleDrop}
@@ -135,12 +137,12 @@ export default function Home() {
               <div
                 className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300 rounded cursor-pointer"
                 onClick={triggerFileInput} // Allow clicking overlay to replace
-               >
+              >
                 <span className="text-white text-lg font-semibold pointer-events-none">Click or drop to replace</span>
               </div>
             </>
           ) : (
-             // Content shown when no image is present
+            // Content shown when no image is present
             <div className="text-gray-300 pointer-events-none"> {/* Prevent text blocking drop */}
               <p>Drag & drop an image here</p>
               <p className="my-2">or</p>
@@ -152,6 +154,7 @@ export default function Home() {
                 Select Image
               </button>
             </div>
+
           )}
         </div>
         <input
@@ -178,6 +181,7 @@ export default function Home() {
             </button>
           </div>
         )}
+
       </div>
 
       {/* Test Backend Button */}
