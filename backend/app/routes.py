@@ -4,11 +4,25 @@
 import os
 import logging
 from flask import Blueprint, jsonify, request
-from PIL import Image # Added for image processing
-import io # Added for handling image data in memory
+from PIL import Image
+import io
+import base64 # Added for encoding image data
+from openai import OpenAI # Added for OpenAI API
+import traceback # Keep for detailed error logging
 
 # Configure basic logging
 logging.basicConfig(level=logging.INFO)
+
+# Configure OpenAI Client - Ensure OPENAI_API_KEY is set in your environment
+try:
+    client = OpenAI()
+    # Test connection (optional, remove in production if noisy)
+    # client.models.list()
+    logging.info("OpenAI client initialized successfully.")
+except Exception as e:
+    logging.error(f"Failed to initialize OpenAI client: {e}. Ensure OPENAI_API_KEY is set.")
+    # Depending on requirements, you might want to exit or disable the feature
+    client = None # Set client to None if initialization fails
 
 bp = Blueprint('main', __name__)
 
@@ -68,6 +82,10 @@ def test_connection():
 
 @bp.route('/analyze-image', methods=['POST'])
 def analyze_image():
+    if not client: # Check if OpenAI client failed to initialize
+         logging.error("OpenAI client not available.")
+         return jsonify({"status": "error", "message": "OpenAI service is not configured or available."}), 503 # Service Unavailable
+
     if 'image' not in request.files:
         logging.error("No image file found in request")
         return jsonify({"status": "error", "message": "No image file part"}), 400
@@ -86,34 +104,57 @@ def analyze_image():
             # Process the image (convert/compress)
             processed_image_data, final_size = process_image(file)
 
-            # --- Placeholder for OpenAI API call ---
-            # Here you would typically send `processed_image_data` to the OpenAI API
-            # For now, we just log and return info about the processed image
-            logging.info("Image processed successfully. Ready for OpenAI API.")
-            # --- End Placeholder ---
+            # --- OpenAI API Call ---
+            logging.info("Sending processed image to OpenAI for analysis...")
 
-            # Create a new filename reflecting the change to JPEG if needed
-            base, _ = os.path.splitext(original_filename)
-            processed_filename = f"{base}_processed.jpg"
+            # Encode image data to base64
+            base64_image = base64.b64encode(processed_image_data.getvalue()).decode('utf-8')
+
+            # Prepare the prompt for OpenAI
+            prompt_text = "analyze this article of clothing and return a short but detailed response about it. Make to sure to include the main color of the item, brand if visible, season, type of item of clothing"
+
+            # Make the API call
+            response = client.chat.completions.create(
+                model="gpt-4-turbo",
+                messages=[
+                    {
+                        "role": "user",
+                        "content": [
+                            {"type": "text", "text": prompt_text},
+                            {
+                                "type": "image_url",
+                                "image_url": {
+                                    "url": f"data:image/jpeg;base64,{base64_image}"
+                                }
+                            },
+                        ],
+                    }
+                ],
+                max_tokens=600
+            )
+
+            # Extract the analysis result
+            analysis_result = response.choices[0].message.content
+            logging.info("Received analysis from OpenAI.")
+            # --- End OpenAI API Call ---
 
             return jsonify({
                 "status": "success",
-                "message": "Image processed successfully and ready for analysis",
-                "original_filename": original_filename,
-                "processed_filename": processed_filename, # Indicate the new format
-                "processed_size_bytes": final_size,
-                "processed_type": "jpeg"
+                "message": "Image analyzed successfully",
+                "analysis": analysis_result # Include the analysis in the response
             }), 200
 
-        except ValueError as ve: # Catch specific compression errors
+        except ValueError as ve: # Catch specific processing errors (like compression failure)
             logging.error(f"Image processing error: {ve}")
-            return jsonify({"status": "error", "message": str(ve)}), 400 # Bad request due to file issue
-        except Exception as e:
-            logging.error(f"Error processing image: {e}")
-            # Log the full traceback for debugging if possible
-            import traceback
-            logging.error(traceback.format_exc())
-            return jsonify({"status": "error", "message": f"Error processing image: {e}"}), 500
+            return jsonify({"status": "error", "message": str(ve)}), 400
+        except Exception as e: # Catch general errors, including OpenAI API errors
+            logging.error(f"Error during image analysis: {e}")
+            logging.error(traceback.format_exc()) # Log detailed traceback
+            # Check if it's an OpenAI API error and provide more specific feedback if possible
+            if "openai" in str(e).lower():
+                 return jsonify({"status": "error", "message": f"OpenAI API error: {e}"}), 502 # Bad Gateway or specific OpenAI error code
+            else:
+                 return jsonify({"status": "error", "message": f"An unexpected error occurred: {e}"}), 500
 
     # Fallback if 'file' is somehow false after checks
     return jsonify({"status": "error", "message": "File processing failed"}), 500

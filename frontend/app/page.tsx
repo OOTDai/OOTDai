@@ -6,6 +6,8 @@ export default function Home() {
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreviewUrl, setImagePreviewUrl] = useState<string | null>(null);
   const [isDragging, setIsDragging] = useState(false);
+  const [analysisResult, setAnalysisResult] = useState<string | null>(null); // State for analysis result
+  const [isLoading, setIsLoading] = useState(false); // State for loading indicator
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const testBackend = async () => {
@@ -22,23 +24,19 @@ export default function Home() {
   const processFile = (file: File | null) => {
     if (file && file.type.startsWith('image/')) {
       setImageFile(file);
+      setAnalysisResult(null); // Clear previous analysis when new image is selected
       const reader = new FileReader();
       reader.onloadend = () => {
         setImagePreviewUrl(reader.result as string);
       };
       reader.readAsDataURL(file);
-      // Reset file input value here too, allows re-selecting the same file after an initial selection
       if (fileInputRef.current) {
         fileInputRef.current.value = '';
       }
     } else {
-      // If a file was provided but wasn't an image, alert the user
       if (file) {
         alert('Please select an image file.');
       }
-      // Don't clear the state here if it wasn't a valid image file,
-      // let the clearImage function handle explicit clearing.
-      // Reset the input ref in case an invalid file was attempted
       if (fileInputRef.current) {
         fileInputRef.current.value = '';
       }
@@ -49,7 +47,8 @@ export default function Home() {
   const clearImage = () => {
     setImageFile(null);
     setImagePreviewUrl(null);
-    // Reset the file input so the same file can be re-selected if needed
+    setAnalysisResult(null); // Clear analysis result
+    setIsLoading(false); // Reset loading state
     if (fileInputRef.current) {
       fileInputRef.current.value = '';
     }
@@ -75,8 +74,7 @@ export default function Home() {
     event.preventDefault();
     setIsDragging(false);
     const file = event.dataTransfer.files ? event.dataTransfer.files[0] : null;
-    processFile(file); // Use the unified handler
-    // Clear the data transfer buffer
+    processFile(file);
     if (event.dataTransfer.items) {
       event.dataTransfer.items.clear();
     } else {
@@ -86,46 +84,53 @@ export default function Home() {
 
   // Opens the file selection dialog
   const triggerFileInput = () => {
-    // Don't trigger if there's already an image, let the overlay handle replacement indication
-    if (!imagePreviewUrl) {
-      fileInputRef.current?.click();
-    } else {
-      // If an image exists, clicking the area should still allow replacement
+    if (!imagePreviewUrl || imagePreviewUrl) { // Allow triggering even if image exists (for replacement)
       fileInputRef.current?.click();
     }
   };
 
   // Handles the submit action
-  const handleSubmit = async () => { // Make the function async
+  const handleSubmit = async () => {
     if (!imageFile) {
       alert("Please select an image first.");
       return;
     }
 
+    setIsLoading(true); // Start loading
+    setAnalysisResult(null); // Clear previous results
+
     const formData = new FormData();
-    formData.append('image', imageFile); // 'image' is the key the backend will look for
+    formData.append('image', imageFile);
 
     try {
       const response = await fetch('http://localhost:5001/analyze-image', {
         method: 'POST',
         body: formData,
-        // Headers are not strictly necessary for FormData with fetch,
-        // the browser sets the 'Content-Type' to 'multipart/form-data' automatically
       });
 
+      const data = await response.json(); // Always try to parse JSON
+
       if (!response.ok) {
-        // Handle server errors (e.g., response.status is 4xx or 5xx)
-        const errorData = await response.json().catch(() => ({ message: 'Failed to parse error response' }));
-        throw new Error(`Server responded with ${response.status}: ${errorData.message || 'Unknown error'}`);
+        // Use message from parsed JSON error response if available
+        throw new Error(data.message || `Server responded with ${response.status}`);
       }
 
-      const data = await response.json();
       console.log("Backend response:", data);
-      alert(`Image analysis successful: ${data.message}`); // Or handle success in another way
+      if (data.analysis) {
+        setAnalysisResult(data.analysis); // Set the analysis result state
+      } else {
+        // Handle case where analysis might be missing even on success
+         setAnalysisResult("Analysis complete, but no description was returned.");
+      }
 
     } catch (error) {
-      console.error("Failed to send image:", error);
-      alert(`Failed to send image: ${error instanceof Error ? error.message : String(error)}`);
+      console.error("Failed to send image or analyze:", error);
+      // Display the error message from the caught error
+      setAnalysisResult(`Analysis failed: ${error instanceof Error ? error.message : String(error)}`);
+      // Optionally use alert as fallback or primary notification
+      // alert(`Failed to analyze image: ${error instanceof Error ? error.message : String(error)}`);
+    } finally {
+       setIsLoading(false); // Stop loading regardless of outcome
     }
   };
 
@@ -147,32 +152,30 @@ export default function Home() {
       <div className="flex flex-col items-center w-full max-w-lg my-4">
         <div
           className={`relative w-full h-64 border-4 border-dashed rounded-lg flex flex-col items-center justify-center p-4 text-center transition-colors duration-200 ease-in-out ${isDragging ? 'border-green-400 bg-blue-800 bg-opacity-50' : 'border-gray-400 hover:border-gray-300'
-            } ${imagePreviewUrl ? '' : 'cursor-pointer'}`} // Only show pointer cursor when no image
+            } ${imagePreviewUrl ? '' : 'cursor-pointer'}`}
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
           onDrop={handleDrop}
-          onClick={triggerFileInput} // Clicking the area triggers file input
+          onClick={triggerFileInput}
         >
           {imagePreviewUrl ? (
             <>
               <img src={imagePreviewUrl} alt="Image preview" className="max-h-full max-w-full object-contain rounded" />
-              {/* Overlay shown on hover when image is present */}
               <div
                 className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300 rounded cursor-pointer"
-                onClick={triggerFileInput} // Allow clicking overlay to replace
+                onClick={triggerFileInput}
               >
                 <span className="text-white text-lg font-semibold pointer-events-none">Click or drop to replace</span>
               </div>
             </>
           ) : (
-            // Content shown when no image is present
-            <div className="text-gray-300 pointer-events-none"> {/* Prevent text blocking drop */}
+            <div className="text-gray-300 pointer-events-none">
               <p>Drag & drop an image here</p>
               <p className="my-2">or</p>
               <button
                 type="button"
-                onClick={(e) => { e.stopPropagation(); triggerFileInput(); }} // Allow button click without triggering div click again
-                className="px-4 py-2 bg-blue-600 rounded hover:bg-blue-700 transition-colors pointer-events-auto" // Re-enable pointer events for button
+                onClick={(e) => { e.stopPropagation(); triggerFileInput(); }}
+                className="px-4 py-2 bg-blue-600 rounded hover:bg-blue-700 transition-colors pointer-events-auto"
               >
                 Select Image
               </button>
@@ -184,30 +187,44 @@ export default function Home() {
           type="file"
           accept="image/*"
           ref={fileInputRef}
-          onChange={handleInputChange}    
-          className="hidden" // Keep the default input hidden
+          onChange={handleInputChange}
+          className="hidden"
         />
         {/* Buttons container - shown only when an image is selected */}
         {imageFile && (
-          <div className="flex space-x-4 mt-4 mb-10">
+          <div className="flex space-x-4 mt-4"> {/* Removed mb-10 */}
             <button
-              onClick={clearImage} // Use the dedicated clear function
-              className="px-4 py-2 bg-red-600 rounded hover:bg-red-700 transition-colors "
+              onClick={clearImage}
+              className="px-4 py-2 bg-red-600 rounded hover:bg-red-700 transition-colors"
+              disabled={isLoading} // Disable while loading
             >
               Clear Image
             </button>
             <button
-              onClick={handleSubmit} // Use the submit handler
-              className="px-4 py-2 bg-green-600 rounded hover:bg-green-700 transition-colors"
+              onClick={handleSubmit}
+              className={`px-4 py-2 rounded transition-colors ${isLoading ? 'bg-gray-500 cursor-not-allowed' : 'bg-green-600 hover:bg-green-700'}`}
+              disabled={isLoading} // Disable while loading
             >
-              Submit Image
+              {isLoading ? 'Analyzing...' : 'Submit Image'}
             </button>
           </div>
         )}
-
       </div>
 
-      {/* Test Backend Button */}
+      {/* Analysis Result Area */}
+      {isLoading && ( // Show loading indicator
+        <div className="mt-4 text-lg">Analyzing image, please wait...</div>
+      )}
+      {analysisResult && !isLoading && ( // Show result only when not loading
+        <div className="mt-6 w-full max-w-lg p-4 bg-white bg-opacity-10 rounded-lg shadow">
+          <h2 className="text-xl font-semibold mb-2 text-white">Analysis Result:</h2>
+          {/* Use whitespace-pre-wrap to preserve line breaks from the API response */}
+          <p className="text-gray-200 whitespace-pre-wrap">{analysisResult}</p>
+        </div>
+      )}
+
+
+      {/* Test Backend Button - Adjusted position slightly */}
       <div className="w-full flex justify-end p-6 absolute bottom-0 right-0">
         <button
           onClick={testBackend}
