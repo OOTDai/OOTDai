@@ -5,3 +5,4 @@ openai==1.66.3
 Werkzeug>=3.0.0
 gunicorn==21.2.0
 python-multipart==0.0.6
+Pillow>=9.0.0 # Added for image processing
