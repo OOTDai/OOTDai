@@ -96,14 +96,37 @@ export default function Home() {
   };
 
   // Handles the submit action
-  const handleSubmit = () => {
+  const handleSubmit = async () => { // Make the function async
     if (!imageFile) {
       alert("Please select an image first.");
       return;
     }
-    console.log("submit button clicked");
-    // Here you would typically send the imageFile to the backend
-    // e.g., using FormData and fetch
+
+    const formData = new FormData();
+    formData.append('image', imageFile); // 'image' is the key the backend will look for
+
+    try {
+      const response = await fetch('http://localhost:5001/analyze-image', {
+        method: 'POST',
+        body: formData,
+        // Headers are not strictly necessary for FormData with fetch,
+        // the browser sets the 'Content-Type' to 'multipart/form-data' automatically
+      });
+
+      if (!response.ok) {
+        // Handle server errors (e.g., response.status is 4xx or 5xx)
+        const errorData = await response.json().catch(() => ({ message: 'Failed to parse error response' }));
+        throw new Error(`Server responded with ${response.status}: ${errorData.message || 'Unknown error'}`);
+      }
+
+      const data = await response.json();
+      console.log("Backend response:", data);
+      alert(`Image analysis successful: ${data.message}`); // Or handle success in another way
+
+    } catch (error) {
+      console.error("Failed to send image:", error);
+      alert(`Failed to send image: ${error instanceof Error ? error.message : String(error)}`);
+    }
   };
 
 
@@ -161,7 +184,7 @@ export default function Home() {
           type="file"
           accept="image/*"
           ref={fileInputRef}
-          onChange={handleInputChange}
+          onChange={handleInputChange}    
           className="hidden" // Keep the default input hidden
         />
         {/* Buttons container - shown only when an image is selected */}
