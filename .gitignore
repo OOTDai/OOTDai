@@ -1,11 +1,20 @@
-# Node modules
+# Node dependencies
 node_modules/
 
+# Python virtual environments
+venv/
+apis/ai/venv/
 
+# Environment files
+.env
+apis/ai/.env
 
+# Python cache
+__pycache__/
 
-# MacOS
+# macOS system files
 .DS_Store
+
 
 # Python
 __pycache__/
