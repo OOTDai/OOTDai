@@ -1,5 +1,16 @@
-node_modules/\nvenv/\n.env\n__pycache__/\n
-.DS_Store
+# Node dependencies
+node_modules/
 
+# Python virtual environments
+venv/
 apis/ai/venv/
+
+# Environment files
+.env
 apis/ai/.env
+
+# Python cache
+__pycache__/
+
+# macOS system files
+.DS_Store
