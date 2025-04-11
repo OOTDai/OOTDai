@@ -11,9 +11,19 @@ from dotenv import load_dotenv
 dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
 load_dotenv(dotenv_path)
 
+#Check if openAI key is set, if not, print a message yes or no 
+api_key = os.environ.get('OPENAI_API_KEY')
+print(f"API Key found: {'Yes' if api_key else 'No'}")
+
+
 def create_app():
     app = Flask(__name__)
-    CORS(app)
+    CORS(app,
+         resources={r"/*": {"origins": "*"}},  # Allow all origins
+         supports_credentials=True,  # Allow credentials
+         allow_headers=["Content-Type", "Authorization", "Accept"],  # Allowed headers
+         methods=["GET", "POST", "OPTIONS"]) 
+    
     app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 
     @app.route('/')

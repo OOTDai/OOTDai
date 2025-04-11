@@ -1,36 +1,35 @@
 'use client';
 
-export default function Home() {
-  const testBackend = async () => {
-    try {
-      const response = await fetch('http://localhost:5001/test');
-      const data = await response.json();
-      alert(data.message);
-    } catch (error) {
-      alert('Failed to connect to backend: ' + error);
-    }
-  };
+import React from 'react';
+import Link from 'next/link'; // Import Link for navigation
 
+export default function LandingPage() {
   return (
-    <div className="flex flex-col items-center justify-between min-h-screen bg-gradient-to-b from-blue-500 to-blue-900 p-6">
-      {/* Title and Excerpt */}
-      <div className="flex flex-col items-center mt-10">
-        <h1 className="text-4xl font-bold text-white mb-2">The Thread Bros</h1>
-        <p className="text-lg text-gray-300 text-center mb-6">
-          Just a bunch of dudes coming together to create a fashion app for styling your sweet baggy jeans.
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-purple-600 via-purple-800 to-indigo-900 text-white p-6">
+      <div className="text-center max-w-2xl">
+        {/* You can add a logo here if needed */}
+        {/* <div className="mb-8">
+          <img src="/your-logo.svg" alt="Logo" className="h-12 mx-auto" />
+        </div> */}
+
+        <h1 className="text-5xl md:text-6xl font-bold mb-4 leading-tight">
+          OOTDai Fashion Analysis
+        </h1>
+        <p className="text-lg md:text-xl text-purple-200 mb-8">
+          Upload an image of your clothing item and get instant AI-powered analysis on its style, color, season, and more. Discover your next favorite outfit!
         </p>
+
+        <Link href="/upload" legacyBehavior>
+          <a className="inline-block px-8 py-4 bg-white text-purple-700 font-semibold rounded-lg shadow-lg hover:bg-gray-100 transition-colors duration-300 transform hover:scale-105">
+            Get Started Now!
+          </a>
+        </Link>
+
+        {/* Optional: Add illustration/image similar to the example */}
+        {/* <div className="mt-12">
+          <img src="/fashion-illustration.svg" alt="Fashion Illustration" className="max-w-md mx-auto" />
+        </div> */}
       </div>
-      {/* Test Backend Button */}
-      <button
-        onClick={testBackend}
-        className="absolute bottom-6 right-6 px-6 py-3 text-white bg-yellow-600 rounded-lg 
-                 transition-all duration-300 ease-in-out
-                 hover:bg-yellow-700 hover:shadow-purple
-                 transform hover:scale-105
-                 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50"
-      >
-        Test Flask Backend
-      </button>
     </div>
   );
 }
