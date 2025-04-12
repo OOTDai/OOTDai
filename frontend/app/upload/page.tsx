@@ -103,7 +103,7 @@ export default function Home() {
     formData.append('image', imageFile);
 
     try {
-      const response = await fetch('http://localhost:5001/analyze-image', {
+      const response = await fetch('http://127.0.0.1:5000/analyze-clothing', {
         method: 'POST',
         body: formData,
       });
@@ -116,11 +116,11 @@ export default function Home() {
       }
 
       console.log("Backend response:", data);
-      if (data.analysis) {
-        setAnalysisResult(data.analysis); // Set the analysis result state
+      if (data.description) { // <-- Changed from data.analysis (matts backend)
+        setAnalysisResult(data.description); // <-- Changed from data.analysis
       } else {
-        // Handle case where analysis might be missing even on success
-         setAnalysisResult("Analysis complete, but no description was returned.");
+        // Handle case where description might be missing even on success
+        setAnalysisResult("Analysis complete, but no description was returned.");
       }
 
     } catch (error) {
