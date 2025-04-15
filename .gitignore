@@ -1,6 +1,56 @@
-node_modules
-venv
+# Node dependencies
+node_modules/
+
+# Python virtual environments
+venv/
+apis/ai/venv/
+
+# Environment files
 .env
-__pycache__
+apis/ai/.env
+
+# Python cache
+__pycache__/
+
+# macOS system files
 .DS_Store
+
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+venv/
+ENV/
+.env
+.venv/
+backend/venv/
+backend/__pycache__/
+backend/**/__pycache__/
+backend/app/__pycache__/
+
+# All env files
+.env*
+
+
+# Database connection notes/instructions
 db.md
+
+.vscode/
