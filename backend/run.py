@@ -2,7 +2,11 @@
 #script: python run.py
 
 # Import the create_app function from the app module
+<<<<<<< HEAD
 from app import create_app
+=======
+from backend.app import create_app
+>>>>>>> dev
 
 # Create an instance of the Flask application
 app = create_app()

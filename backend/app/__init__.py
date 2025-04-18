@@ -8,8 +8,19 @@ import logging
 from dotenv import load_dotenv
 
 # load the environment variables
+<<<<<<< HEAD
 dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
 load_dotenv(dotenv_path)
+=======
+# dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
+# load_dotenv(dotenv_path)
+
+# load_dotenv()
+
+load_dotenv(os.path.join(os.path.dirname(__file__), '..', '.env'))
+
+
+>>>>>>> dev
 
 #Check if openAI key is set, if not, print a message yes or no 
 api_key = os.environ.get('OPENAI_API_KEY')
@@ -30,7 +41,11 @@ def create_app():
     def test_route():
         return {"message": "Hello! Your Flask backend is working correctly!"}, 200
 
+<<<<<<< HEAD
     from app import routes
+=======
+    from . import routes
+>>>>>>> dev
     app.register_blueprint(routes.bp)
 
     return app

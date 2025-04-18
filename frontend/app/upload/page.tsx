@@ -12,7 +12,11 @@ export default function Home() {
 
   const testBackend = async () => {
     try {
+<<<<<<< HEAD
       const response = await fetch('http://localhost:5001/test');
+=======
+      const response = await fetch('http://127.0.0.1:5001/test');
+>>>>>>> dev
       const data = await response.json();
       alert(data.message);
     } catch (error) {
@@ -103,13 +107,18 @@ export default function Home() {
     formData.append('image', imageFile);
 
     try {
+<<<<<<< HEAD
       const response = await fetch('http://localhost:5001/analyze-image', {
+=======
+      const response = await fetch('http://127.0.0.1:5001/analyze-clothing', {
+>>>>>>> dev
         method: 'POST',
         body: formData,
       });
 
       const data = await response.json(); // Always try to parse JSON
 
+<<<<<<< HEAD
       if (!response.ok) {
         // Use message from parsed JSON error response if available
         throw new Error(data.message || `Server responded with ${response.status}`);
@@ -118,6 +127,49 @@ export default function Home() {
       console.log("Backend response:", data);
       if (data.analysis) {
         setAnalysisResult(data.analysis); // Set the analysis result state
+=======
+
+      // ###TRIAL CODE###
+
+      // const response = await fetch('http://127.0.0.1:5001/analyze-clothing', {
+      //   method: 'POST',
+      //   body: formData,
+      // });
+      
+      // // Try to safely parse the response
+      // const text = await response.text();
+      // let data;
+      
+      // try {
+      //   data = JSON.parse(text);
+      // } catch (err) {
+      //   console.error("Invalid JSON from backend:", text);
+      //   throw new Error("Backend returned invalid JSON");
+      // }
+      
+      // if (!response.ok) {
+      //   console.error("Backend error:", data);
+      //   throw new Error(data?.message || `Server responded with ${response.status}`);
+      // }
+      
+      // ###END TRIAL CODE###
+
+      // if (!response.ok) {
+      //   // Use message from parsed JSON error response if available
+      //   throw new Error(data.message || `Server responded with ${response.status}`);
+      // }
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        console.error("Backend error:", errorData);
+        throw new Error(errorData?.message || `Server responded with ${response.status}`);
+      }
+      
+
+      console.log("Backend response:", data);
+      if (data.description) {
+        setAnalysisResult(data.description); // Set the description result state
+>>>>>>> dev
       } else {
         // Handle case where analysis might be missing even on success
          setAnalysisResult("Analysis complete, but no description was returned.");
@@ -240,3 +292,7 @@ export default function Home() {
     </div>
   );
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> dev
