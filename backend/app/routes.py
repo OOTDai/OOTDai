@@ -80,7 +80,7 @@ def process_image(file_storage):
 def test_connection():
     return jsonify({"status": "success", "message": "Successfully connected to Flask backend!"}), 200
 
-@bp.route('/analyze-image', methods=['POST'])
+@bp.route('/analyze-clothing', methods=['POST'])
 def analyze_image():
     if not client: # Check if OpenAI client failed to initialize
          logging.error("OpenAI client not available.")
@@ -134,6 +134,8 @@ def analyze_image():
             )
 
             # Extract the analysis result
+            logging.info(f"🔍 Full OpenAI response: {response}")
+
             analysis_result = response.choices[0].message.content
             logging.info("Received analysis from OpenAI.")
             # --- End OpenAI API Call ---
@@ -141,20 +143,31 @@ def analyze_image():
             return jsonify({
                 "status": "success",
                 "message": "Image analyzed successfully",
-                "analysis": analysis_result # Include the analysis in the response
+                "description": analysis_result # Include the analysis in the response
             }), 200
 
         except ValueError as ve: # Catch specific processing errors (like compression failure)
             logging.error(f"Image processing error: {ve}")
             return jsonify({"status": "error", "message": str(ve)}), 400
-        except Exception as e: # Catch general errors, including OpenAI API errors
-            logging.error(f"Error during image analysis: {e}")
-            logging.error(traceback.format_exc()) # Log detailed traceback
-            # Check if it's an OpenAI API error and provide more specific feedback if possible
-            if "openai" in str(e).lower():
-                 return jsonify({"status": "error", "message": f"OpenAI API error: {e}"}), 502 # Bad Gateway or specific OpenAI error code
-            else:
-                 return jsonify({"status": "error", "message": f"An unexpected error occurred: {e}"}), 500
+        # except Exception as e: # Catch general errors, including OpenAI API errors
+        #     logging.error(f"Error during image analysis: {e}")
+        #     logging.error(traceback.format_exc()) # Log detailed traceback
+        #     # Check if it's an OpenAI API error and provide more specific feedback if possible
+        #     if "openai" in str(e).lower():
+        #          return jsonify({"status": "error", "message": f"OpenAI API error: {e}"}), 502 # Bad Gateway or specific OpenAI error code
+        #     else:
+        #          return jsonify({"status": "error", "message": f"An unexpected error occurred: {e}"}), 500
+        except Exception as e:
+            full_trace = traceback.format_exc()
+            logging.error(f"Unhandled error during image analysis: {e}")
+            logging.error(full_trace)
+
+        return jsonify({
+            "status": "error",
+            "message": f"Internal Server Error: {str(e)}",
+            "trace": full_trace  # You can remove this in production
+        }), 500
+
 
     # Fallback if 'file' is somehow false after checks
     return jsonify({"status": "error", "message": "File processing failed"}), 500
