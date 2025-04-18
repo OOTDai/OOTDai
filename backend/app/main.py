@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 import base64
-from app.openai_utils import describe_image
+from data.openai_utils import describe_image
 
 app = Flask(__name__)
 CORS(app)
@@ -45,5 +45,11 @@ def suggest_outfit():
     })
 
 
+@app.route('/test', methods=['GET'])
+def test_connection():
+    return jsonify({"message": "Successfully connected to Flask backend!"}), 200
+
 if __name__ == '__main__':
     app.run(debug=True)
+
+
