@@ -13,17 +13,25 @@ export default function LandingPage() {
         </div> */}
 
         <h1 className="text-5xl md:text-6xl font-bold mb-4 leading-tight">
-          OOTDai Fashion Analysis
+         
         </h1>
         <p className="text-lg md:text-xl text-purple-200 mb-8">
           Upload an image of your clothing item and get instant AI-powered analysis on its style, color, season, and more. Discover your next favorite outfit!
         </p>
 
-        <Link href="/upload" legacyBehavior>
-          <a className="inline-block px-8 py-4 bg-white text-purple-700 font-semibold rounded-lg shadow-lg hover:bg-gray-100 transition-colors duration-300 transform hover:scale-105">
-            Get Started Now!
-          </a>
-        </Link>
+        <div className="flex gap-4 justify-center">
+          <Link href="/upload" legacyBehavior>
+            <a className="inline-block px-8 py-4 bg-white text-purple-700 font-semibold rounded-lg shadow-lg hover:bg-gray-100 transition-colors duration-300 transform hover:scale-105">
+              Get Started Now!
+            </a>
+          </Link>
+
+          <Link href="/createAccount" legacyBehavior>
+            <a className="inline-block px-8 py-4 bg-purple-500 text-white font-semibold rounded-lg shadow-lg hover:bg-purple-600 transition-colors duration-300 transform hover:scale-105 border-2 border-white">
+              Create Account
+            </a>
+          </Link>
+        </div>
 
         {/* Optional: Add illustration/image similar to the example */}
         {/* <div className="mt-12">
