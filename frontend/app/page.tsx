@@ -17,6 +17,9 @@ export default function LandingPage() {
         </Link>
       </header>
 
+      {/* Top White Bar */}
+      <div className="w-full h-4 bg-white"></div>
+
       {/* Hero Section with Closet Image */}
       <section className="w-full h-[400px] relative">
         <Image
@@ -29,6 +32,9 @@ export default function LandingPage() {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#1D1D1D] via-transparent to-transparent opacity-10"></div>
       </section>
+
+      {/* Bottom White Bar */}
+      <div className="w-full h-4 bg-white"></div>
 
       {/* About Section */}
       <section className="py-16 px-4">
@@ -123,13 +129,36 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Sign Up Button Section */}
-      <section className="py-16 flex justify-center">
-        <Link href="/createAccount" legacyBehavior>
-          <a className="px-8 py-4 bg-[#B5A48B] text-[#1D1D1D] text-xl font-semibold rounded-lg hover:bg-[#A4B0BC] transition-all duration-300 transform hover:scale-105 shadow-lg border border-[#4F5B62]">
-            Sign Up
-          </a>
-        </Link>
+      {/* Message Section (replacing original Sign Up button) */}
+      <section className="py-16 px-4">
+        <div className="max-w-3xl mx-auto text-center">
+          <h2 className="text-3xl font-bold text-[#B5A48B] mb-6">We Get It.</h2>
+          <p className="text-[#A4B0BC] text-xl leading-relaxed mb-4">
+            Looking good shouldn&apos;t be a daily struggle.
+          </p>
+          <p className="text-[#A4B0BC] text-lg leading-relaxed">
+            Let us take the guesswork out of getting dressed, so you can focus on being your best self.
+          </p>
+        </div>
+      </section>
+
+      {/* Bottom Landscape Image Section */}
+      <section className="w-full h-[500px] relative">
+        <Image
+          src="/images/landscapeFashion.webp"
+          alt="Fashion Landscape"
+          fill
+          style={{ objectFit: 'cover' }}
+          className="brightness-95"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#1D1D1D] via-transparent to-transparent opacity-50"></div>
+        <div className="absolute inset-0 flex items-center justify-center">
+          <Link href="/createAccount" legacyBehavior>
+            <a className="px-8 py-4 bg-[#B5A48B] text-[#1D1D1D] text-xl font-semibold rounded-lg hover:bg-[#A4B0BC] transition-all duration-300 transform hover:scale-105 shadow-lg border border-[#4F5B62] z-10">
+              Sign Up Now
+            </a>
+          </Link>
+        </div>
       </section>
     </div>
   );
