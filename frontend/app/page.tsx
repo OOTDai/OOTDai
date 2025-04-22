@@ -64,58 +64,60 @@ export default function LandingPage() {
           </div>
         </div>
         
-        <div className="max-w-6xl mx-auto">
-          <h3 className="text-2xl font-semibold text-center text-[#B5A48B] mb-8">Style Inspiration</h3>
-          <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
-            <div className="aspect-[3/4] relative group">
-              <Image
-                src="/images/mensExample1.jpg"
-                alt="Fashion Example 1"
-                fill
-                style={{ objectFit: 'cover' }}
-                className="rounded-lg transition-transform duration-300 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-[#1D1D1D] opacity-0 group-hover:opacity-20 transition-opacity duration-300 rounded-lg"></div>
-            </div>
-            <div className="aspect-[3/4] relative group">
-              <Image
-                src="/images/mensexample2.jpg"
-                alt="Fashion Example 2"
-                fill
-                style={{ objectFit: 'cover' }}
-                className="rounded-lg transition-transform duration-300 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-[#1D1D1D] opacity-0 group-hover:opacity-20 transition-opacity duration-300 rounded-lg"></div>
-            </div>
-            <div className="aspect-[3/4] relative group">
-              <Image
-                src="/images/mensexample3.jpg"
-                alt="Fashion Example 3"
-                fill
-                style={{ objectFit: 'cover' }}
-                className="rounded-lg transition-transform duration-300 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-[#1D1D1D] opacity-0 group-hover:opacity-20 transition-opacity duration-300 rounded-lg"></div>
-            </div>
-            <div className="aspect-[3/4] relative group">
-              <Image
-                src="/images/mensexample4.jpg"
-                alt="Fashion Example 4"
-                fill
-                style={{ objectFit: 'cover' }}
-                className="rounded-lg transition-transform duration-300 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-[#1D1D1D] opacity-0 group-hover:opacity-20 transition-opacity duration-300 rounded-lg"></div>
-            </div>
-            <div className="aspect-[3/4] relative group">
-              <Image
-                src="/images/mensexample5.jpg"
-                alt="Fashion Example 5"
-                fill
-                style={{ objectFit: 'cover' }}
-                className="rounded-lg transition-transform duration-300 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-[#1D1D1D] opacity-0 group-hover:opacity-20 transition-opacity duration-300 rounded-lg"></div>
+        <div className="w-full bg-white py-12">
+          <div className="max-w-6xl mx-auto px-4">
+            <h3 className="text-2xl font-semibold text-center text-[#B5A48B] mb-8">Style Inspiration</h3>
+            <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
+              <div className="aspect-[3/4] relative group">
+                <Image
+                  src="/images/mensExample1.jpg"
+                  alt="Fashion Example 1"
+                  fill
+                  style={{ objectFit: 'cover' }}
+                  className="rounded-lg transition-transform duration-300 group-hover:scale-105 border-2 border-[#B5A48B]"
+                />
+                <div className="absolute inset-0 bg-[#1D1D1D] opacity-0 group-hover:opacity-20 transition-opacity duration-300 rounded-lg"></div>
+              </div>
+              <div className="aspect-[3/4] relative group">
+                <Image
+                  src="/images/mensexample2.jpg"
+                  alt="Fashion Example 2"
+                  fill
+                  style={{ objectFit: 'cover' }}
+                  className="rounded-lg transition-transform duration-300 group-hover:scale-105 border-2 border-[#B5A48B]"
+                />
+                <div className="absolute inset-0 bg-[#1D1D1D] opacity-0 group-hover:opacity-20 transition-opacity duration-300 rounded-lg"></div>
+              </div>
+              <div className="aspect-[3/4] relative group">
+                <Image
+                  src="/images/mensexample3.jpg"
+                  alt="Fashion Example 3"
+                  fill
+                  style={{ objectFit: 'cover' }}
+                  className="rounded-lg transition-transform duration-300 group-hover:scale-105 border-2 border-[#B5A48B]"
+                />
+                <div className="absolute inset-0 bg-[#1D1D1D] opacity-0 group-hover:opacity-20 transition-opacity duration-300 rounded-lg"></div>
+              </div>
+              <div className="aspect-[3/4] relative group">
+                <Image
+                  src="/images/mensexample4.jpg"
+                  alt="Fashion Example 4"
+                  fill
+                  style={{ objectFit: 'cover' }}
+                  className="rounded-lg transition-transform duration-300 group-hover:scale-105 border-2 border-[#B5A48B]"
+                />
+                <div className="absolute inset-0 bg-[#1D1D1D] opacity-0 group-hover:opacity-20 transition-opacity duration-300 rounded-lg"></div>
+              </div>
+              <div className="aspect-[3/4] relative group">
+                <Image
+                  src="/images/mensexample5.jpg"
+                  alt="Fashion Example 5"
+                  fill
+                  style={{ objectFit: 'cover' }}
+                  className="rounded-lg transition-transform duration-300 group-hover:scale-105 border-2 border-[#B5A48B]"
+                />
+                <div className="absolute inset-0 bg-[#1D1D1D] opacity-0 group-hover:opacity-20 transition-opacity duration-300 rounded-lg"></div>
+              </div>
             </div>
           </div>
         </div>

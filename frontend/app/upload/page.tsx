@@ -169,14 +169,14 @@ export default function Home() {
 
 
   return (
-    <div className="flex flex-col items-center justify-start min-h-screen bg-gradient-to-b from-blue-500 to-blue-900 p-6 text-white">
+    <div className="flex flex-col items-center justify-start min-h-screen bg-gradient-to-b from-[#1D1D1D] via-[#2D3436] to-[#4F5B62] p-6 text-[#A4B0BC]">
       {/* Title and Excerpt */}
       <div className="flex flex-col items-center mt-10 text-center">
-        <h1 className="text-4xl font-bold mb-2">The Thread Bros</h1>
-        <p className="text-lg text-gray-300 mb-6 max-w-md">
+        <h1 className="text-4xl font-bold mb-2 text-[#B5A48B]">The Thread Bros</h1>
+        <p className="text-lg text-[#A4B0BC] mb-6 max-w-md">
           Just a bunch of dudes coming together to create a fashion app for styling your sweet baggy jeans.
         </p>
-        <div className="text-gray-300 text-sm mt-2">
+        <div className="text-[#A4B0BC] text-sm mt-2">
           <p>Upload an image of an article of clothing</p>
         </div>
       </div>
@@ -184,8 +184,9 @@ export default function Home() {
       {/* Image Upload Area */}
       <div className="flex flex-col items-center w-full max-w-lg my-4">
         <div
-          className={`relative w-full h-64 border-4 border-dashed rounded-lg flex flex-col items-center justify-center p-4 text-center transition-colors duration-200 ease-in-out ${isDragging ? 'border-green-400 bg-blue-800 bg-opacity-50' : 'border-gray-400 hover:border-gray-300'
-            } ${imagePreviewUrl ? '' : 'cursor-pointer'}`}
+          className={`relative w-full h-64 border-4 border-dashed rounded-lg flex flex-col items-center justify-center p-4 text-center transition-colors duration-200 ease-in-out ${
+            isDragging ? 'border-[#B5A48B] bg-[#2D3436] bg-opacity-50' : 'border-[#4F5B62] hover:border-[#B5A48B]'
+          } ${imagePreviewUrl ? '' : 'cursor-pointer'}`}
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
           onDrop={handleDrop}
@@ -195,25 +196,24 @@ export default function Home() {
             <>
               <img src={imagePreviewUrl} alt="Image preview" className="max-h-full max-w-full object-contain rounded" />
               <div
-                className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300 rounded cursor-pointer"
+                className="absolute inset-0 bg-[#1D1D1D] bg-opacity-50 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300 rounded cursor-pointer"
                 onClick={triggerFileInput}
               >
-                <span className="text-white text-lg font-semibold pointer-events-none">Click or drop to replace</span>
+                <span className="text-[#B5A48B] text-lg font-semibold pointer-events-none">Click or drop to replace</span>
               </div>
             </>
           ) : (
-            <div className="text-gray-300 pointer-events-none">
+            <div className="text-[#A4B0BC] pointer-events-none">
               <p>Drag & drop an image here</p>
               <p className="my-2">or</p>
               <button
                 type="button"
                 onClick={(e) => { e.stopPropagation(); triggerFileInput(); }}
-                className="px-4 py-2 bg-blue-600 rounded hover:bg-blue-700 transition-colors pointer-events-auto"
+                className="px-4 py-2 bg-[#4F5B62] text-[#B5A48B] rounded hover:bg-[#2D3436] transition-colors pointer-events-auto border border-[#B5A48B]"
               >
                 Select Image
               </button>
             </div>
-
           )}
         </div>
         <input
@@ -225,18 +225,22 @@ export default function Home() {
         />
         {/* Buttons container - shown only when an image is selected */}
         {imageFile && (
-          <div className="flex space-x-4 mt-4"> {/* Removed mb-10 */}
+          <div className="flex space-x-4 mt-4">
             <button
               onClick={clearImage}
-              className="px-4 py-2 bg-red-600 rounded hover:bg-red-700 transition-colors"
-              disabled={isLoading} // Disable while loading
+              className="px-4 py-2 bg-[#2D3436] text-[#A4B0BC] rounded hover:bg-[#1D1D1D] transition-colors border border-[#4F5B62]"
+              disabled={isLoading}
             >
               Clear Image
             </button>
             <button
               onClick={handleSubmit}
-              className={`px-4 py-2 rounded transition-colors ${isLoading ? 'bg-gray-500 cursor-not-allowed' : 'bg-green-600 hover:bg-green-700'}`}
-              disabled={isLoading} // Disable while loading
+              className={`px-4 py-2 rounded transition-colors border ${
+                isLoading 
+                ? 'bg-[#2D3436] text-[#4F5B62] cursor-not-allowed border-[#4F5B62]' 
+                : 'bg-[#B5A48B] text-[#1D1D1D] hover:bg-[#A4B0BC] border-[#4F5B62]'
+              }`}
+              disabled={isLoading}
             >
               {isLoading ? 'Analyzing...' : 'Submit Image'}
             </button>
@@ -245,27 +249,26 @@ export default function Home() {
       </div>
 
       {/* Analysis Result Area */}
-      {isLoading && ( // Show loading indicator
-        <div className="mt-4 text-lg">Analyzing image, please wait...</div>
+      {isLoading && (
+        <div className="mt-4 text-lg text-[#B5A48B]">Analyzing image, please wait...</div>
       )}
-      {analysisResult && !isLoading && ( // Show result only when not loading
-        <div className="mt-6 w-full max-w-lg p-4 bg-white bg-opacity-10 rounded-lg shadow">
-          <h2 className="text-xl font-semibold mb-2 text-white">Analysis Result:</h2>
-          {/* Use whitespace-pre-wrap to preserve line breaks from the API response */}
-          <p className="text-gray-200 whitespace-pre-wrap">{analysisResult}</p>
+      {analysisResult && !isLoading && (
+        <div className="mt-6 w-full max-w-lg p-4 bg-[#2D3436] rounded-lg shadow border border-[#4F5B62]">
+          <h2 className="text-xl font-semibold mb-2 text-[#B5A48B]">Analysis Result:</h2>
+          <p className="text-[#A4B0BC] whitespace-pre-wrap">{analysisResult}</p>
         </div>
       )}
 
-
-      {/* Test Backend Button - Adjusted position slightly */}
+      {/* Test Backend Button */}
       <div className="w-full flex justify-end p-6 absolute bottom-0 right-0">
         <button
           onClick={testBackend}
-          className="px-6 py-3 text-white bg-yellow-600 rounded-lg
+          className="px-6 py-3 text-[#1D1D1D] bg-[#B5A48B] rounded-lg
                    transition-all duration-300 ease-in-out
-                   hover:bg-yellow-700 hover:shadow-purple
+                   hover:bg-[#A4B0BC] hover:shadow-lg
                    transform hover:scale-105
-                   focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50"
+                   focus:outline-none focus:ring-2 focus:ring-[#4F5B62] focus:ring-opacity-50
+                   border border-[#4F5B62]"
         >
           Test Flask Backend
         </button>
