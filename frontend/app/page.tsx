@@ -1,43 +1,134 @@
 'use client';
 
 import React from 'react';
-import Link from 'next/link'; // Import Link for navigation
+import Link from 'next/link';
+import Image from 'next/image';
 
 export default function LandingPage() {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-purple-600 via-purple-800 to-indigo-900 text-white p-6">
-      <div className="text-center max-w-2xl">
-        {/* You can add a logo here if needed */}
-        {/* <div className="mb-8">
-          <img src="/your-logo.svg" alt="Logo" className="h-12 mx-auto" />
-        </div> */}
+    <div className="flex flex-col min-h-screen bg-gradient-to-b from-[#1D1D1D] via-[#2D3436] to-[#4F5B62]">
+      {/* Header Section */}
+      <header className="w-full p-4 flex justify-between items-center bg-[#1D1D1D] shadow-lg">
+        <h1 className="text-2xl font-bold text-[#B5A48B]">fashionAI</h1>
+        <Link href="/upload" legacyBehavior>
+          <a className="px-6 py-2 bg-[#4F5B62] text-[#A4B0BC] rounded-lg hover:bg-[#2D3436] transition-colors border border-[#B5A48B]">
+            Login
+          </a>
+        </Link>
+      </header>
 
-        <h1 className="text-5xl md:text-6xl font-bold mb-4 leading-tight">
-         
-        </h1>
-        <p className="text-lg md:text-xl text-purple-200 mb-8">
-          Upload an image of your clothing item and get instant AI-powered analysis on its style, color, season, and more. Discover your next favorite outfit!
-        </p>
+      {/* Hero Section with Closet Image */}
+      <section className="w-full h-[400px] relative">
+        <Image
+          src="/images/mensClosetLandscape.webp"
+          alt="Organized closet with clothes"
+          fill
+          style={{ objectFit: 'cover' }}
+          priority
+          className="brightness-100 contrast-100"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#1D1D1D] via-transparent to-transparent opacity-10"></div>
+      </section>
 
-        <div className="flex gap-4 justify-center">
-          <Link href="/upload" legacyBehavior>
-            <a className="inline-block px-8 py-4 bg-white text-purple-700 font-semibold rounded-lg shadow-lg hover:bg-gray-100 transition-colors duration-300 transform hover:scale-105">
-              Get Started Now!
-            </a>
-          </Link>
-
-          <Link href="/createAccount" legacyBehavior>
-            <a className="inline-block px-8 py-4 bg-purple-500 text-white font-semibold rounded-lg shadow-lg hover:bg-purple-600 transition-colors duration-300 transform hover:scale-105 border-2 border-white">
-              Create Account
-            </a>
-          </Link>
+      {/* About Section */}
+      <section className="py-16 px-4">
+        <h2 className="text-3xl font-bold text-center text-[#B5A48B] mb-8">Your AI Fashion Assistant</h2>
+        <div className="max-w-3xl mx-auto text-center mb-16">
+          <p className="text-[#A4B0BC] text-lg leading-relaxed mb-6">
+            Transform your wardrobe management and style journey with our AI-powered virtual closet. Upload your clothing items to create a comprehensive digital inventory of your wardrobe, and let our sophisticated AI help you discover perfect outfit combinations.
+          </p>
+          <p className="text-[#A4B0BC] text-lg leading-relaxed mb-6">
+            Whether you&apos;re just beginning to explore fashion or you&apos;re a seasoned style enthusiast, our AI assistant provides personalized recommendations based on:
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-[#B5A48B] text-left max-w-2xl mx-auto mb-8">
+            <ul className="space-y-2">
+              <li className="flex items-center">
+                <span className="mr-2">•</span>
+                Current fashion trends
+              </li>
+              <li className="flex items-center">
+                <span className="mr-2">•</span>
+                Complementary color matching
+              </li>
+            </ul>
+            <ul className="space-y-2">
+              <li className="flex items-center">
+                <span className="mr-2">•</span>
+                Personal style preferences
+              </li>
+              <li className="flex items-center">
+                <span className="mr-2">•</span>
+                Outfit optimization
+              </li>
+            </ul>
+          </div>
         </div>
+        
+        <div className="max-w-6xl mx-auto">
+          <h3 className="text-2xl font-semibold text-center text-[#B5A48B] mb-8">Style Inspiration</h3>
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
+            <div className="aspect-[3/4] relative group">
+              <Image
+                src="/images/mensExample1.jpg"
+                alt="Fashion Example 1"
+                fill
+                style={{ objectFit: 'cover' }}
+                className="rounded-lg transition-transform duration-300 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-[#1D1D1D] opacity-0 group-hover:opacity-20 transition-opacity duration-300 rounded-lg"></div>
+            </div>
+            <div className="aspect-[3/4] relative group">
+              <Image
+                src="/images/mensexample2.jpg"
+                alt="Fashion Example 2"
+                fill
+                style={{ objectFit: 'cover' }}
+                className="rounded-lg transition-transform duration-300 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-[#1D1D1D] opacity-0 group-hover:opacity-20 transition-opacity duration-300 rounded-lg"></div>
+            </div>
+            <div className="aspect-[3/4] relative group">
+              <Image
+                src="/images/mensexample3.jpg"
+                alt="Fashion Example 3"
+                fill
+                style={{ objectFit: 'cover' }}
+                className="rounded-lg transition-transform duration-300 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-[#1D1D1D] opacity-0 group-hover:opacity-20 transition-opacity duration-300 rounded-lg"></div>
+            </div>
+            <div className="aspect-[3/4] relative group">
+              <Image
+                src="/images/mensexample4.jpg"
+                alt="Fashion Example 4"
+                fill
+                style={{ objectFit: 'cover' }}
+                className="rounded-lg transition-transform duration-300 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-[#1D1D1D] opacity-0 group-hover:opacity-20 transition-opacity duration-300 rounded-lg"></div>
+            </div>
+            <div className="aspect-[3/4] relative group">
+              <Image
+                src="/images/mensexample5.jpg"
+                alt="Fashion Example 5"
+                fill
+                style={{ objectFit: 'cover' }}
+                className="rounded-lg transition-transform duration-300 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-[#1D1D1D] opacity-0 group-hover:opacity-20 transition-opacity duration-300 rounded-lg"></div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-        {/* Optional: Add illustration/image similar to the example */}
-        {/* <div className="mt-12">
-          <img src="/fashion-illustration.svg" alt="Fashion Illustration" className="max-w-md mx-auto" />
-        </div> */}
-      </div>
+      {/* Sign Up Button Section */}
+      <section className="py-16 flex justify-center">
+        <Link href="/createAccount" legacyBehavior>
+          <a className="px-8 py-4 bg-[#B5A48B] text-[#1D1D1D] text-xl font-semibold rounded-lg hover:bg-[#A4B0BC] transition-all duration-300 transform hover:scale-105 shadow-lg border border-[#4F5B62]">
+            Sign Up
+          </a>
+        </Link>
+      </section>
     </div>
   );
 }
