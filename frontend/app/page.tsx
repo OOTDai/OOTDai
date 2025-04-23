@@ -10,7 +10,7 @@ export default function LandingPage() {
       {/* Header Section */}
       <header className="w-full p-4 flex justify-between items-center bg-[#1D1D1D] shadow-lg">
         <h1 className="text-2xl font-bold text-[#B5A48B]">fashionAI</h1>
-        <Link href="/upload" legacyBehavior>
+        <Link href="/login" legacyBehavior>
           <a className="px-6 py-2 bg-[#4F5B62] text-[#A4B0BC] rounded-lg hover:bg-[#2D3436] transition-colors border border-[#B5A48B]">
             Login
           </a>
@@ -151,10 +151,10 @@ export default function LandingPage() {
           style={{ objectFit: 'cover' }}
           className="brightness-95"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#1D1D1D] via-transparent to-transparent opacity-50"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-[#1D1D1D] via-transparent to-transparent opacity-10"></div>
         <div className="absolute inset-0 flex items-center justify-center">
           <Link href="/createAccount" legacyBehavior>
-            <a className="px-8 py-4 bg-[#B5A48B] text-[#1D1D1D] text-xl font-semibold rounded-lg hover:bg-[#A4B0BC] transition-all duration-300 transform hover:scale-105 shadow-lg border border-[#4F5B62] z-10">
+            <a className="px-8 py-4 bg-[#B5A48B] text-[#1D1D1D] text-xl font-semibold rounded-lg hover:bg-[#A4B0BC] transition-all duration-300 transform hover:scale-105 shadow-lg border-[4px] border-black z-10">
               Sign Up Now
             </a>
           </Link>

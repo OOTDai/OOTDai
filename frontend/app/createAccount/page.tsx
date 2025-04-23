@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import { useState } from 'react';
+import Link from 'next/link';
 
 export default function CreateAccount() {
   const [formData, setFormData] = useState({
@@ -25,123 +26,125 @@ export default function CreateAccount() {
     console.log('Form Data:', formData);
   };
 
-  const handleLoginClick = () => {
-    console.log('take me to login page');
-  };
-
   return (
-    <div className="flex min-h-screen bg-[#1D2B34]">
-      {/* Left Section with Image */}
-      <div className="flex-1 relative">
-        <div className="absolute inset-0">
-          <Image
-            src="/images/mensCloset.jpg"
-            alt="Mens Closet"
-            fill
-            style={{ objectFit: 'cover' }}
-            priority
-          />
-          <div className="absolute bottom-0 left-0 right-0 p-8 bg-gradient-to-t from-[#1A1A1A]/90 to-transparent">
-            <h2 className="text-4xl font-medium text-[#D4C5B3] m-0">
-              Let us choose your next outfit
-            </h2>
-          </div>
-        </div>
+    <div className="relative h-screen w-screen overflow-hidden">
+      {/* Background Image */}
+      <div className="absolute inset-0">
+        <Image
+          src="/images/closetLeft.jpg"
+          alt="Light Closet"
+          fill
+          quality={100}
+          sizes="100vw"
+          placeholder="blur"
+          blurDataURL="/images/closetRight.jpg"
+          style={{ 
+            objectFit: 'cover',
+            objectPosition: 'center',
+          }}
+          priority
+        />
       </div>
 
-      {/* Right Section with Form */}
-      <div className="flex-1 flex justify-center items-center p-12 bg-[#2D4047]/90 backdrop-blur-sm">
-        <div className="w-full max-w-xl">
-          <h1 className="text-4xl font-semibold mb-12 text-[#D4C5B3] text-center">
-            Create an account
-          </h1>
-          <form onSubmit={handleSubmit} className="space-y-6">
-            {/* Name Fields */}
-            <div className="flex gap-6">
-              <div className="flex-1">
-                <input
-                  type="text"
-                  name="firstName"
-                  placeholder="First name"
-                  value={formData.firstName}
-                  onChange={handleInputChange}
-                  required
-                  className="w-full px-6 py-4 text-lg rounded-lg border border-[#717C84] focus:outline-none focus:border-[#D4C5B3] focus:ring-2 focus:ring-[#D4C5B3]/20 transition-all bg-[#1D2B34] text-[#D4C5B3] placeholder-[#717C84]"
-                />
-              </div>
-              <div className="flex-1">
-                <input
-                  type="text"
-                  name="lastName"
-                  placeholder="Last name"
-                  value={formData.lastName}
-                  onChange={handleInputChange}
-                  required
-                  className="w-full px-6 py-4 text-lg rounded-lg border border-[#717C84] focus:outline-none focus:border-[#D4C5B3] focus:ring-2 focus:ring-[#D4C5B3]/20 transition-all bg-[#1D2B34] text-[#D4C5B3] placeholder-[#717C84]"
-                />
-              </div>
-            </div>
+      {/* Dark Overlay */}
+      <div className="absolute inset-0 bg-black bg-opacity-10 z-10"></div>
 
-            {/* Email Field */}
-            <div>
+      {/* Form Container */}
+      <div className="absolute top-0 right-0 w-1/3 h-full bg-white bg-opacity-100 z-20 flex flex-col justify-center px-8">
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <h2 className="text-3xl font-bold text-[#1D1D1D] mb-8">Create Account</h2>
+          
+          {/* Name Fields */}
+          <div className="flex gap-4">
+            <div className="flex-1 space-y-2">
+              <label htmlFor="firstName" className="block text-[#1D1D1D] font-medium">
+                First Name
+              </label>
               <input
-                type="email"
-                name="email"
-                placeholder="Email"
-                value={formData.email}
+                type="text"
+                id="firstName"
+                name="firstName"
+                value={formData.firstName}
                 onChange={handleInputChange}
+                className="w-full px-4 py-2 rounded-lg border border-[#4F5B62] focus:outline-none focus:border-[#B5A48B] text-[#1D1D1D]"
                 required
-                className="w-full px-6 py-4 text-lg rounded-lg border border-[#717C84] focus:outline-none focus:border-[#D4C5B3] focus:ring-2 focus:ring-[#D4C5B3]/20 transition-all bg-[#1D2B34] text-[#D4C5B3] placeholder-[#717C84]"
               />
             </div>
-
-            {/* Password Fields */}
-            <div>
+            <div className="flex-1 space-y-2">
+              <label htmlFor="lastName" className="block text-[#1D1D1D] font-medium">
+                Last Name
+              </label>
               <input
-                type="password"
-                name="password"
-                placeholder="Password"
-                value={formData.password}
+                type="text"
+                id="lastName"
+                name="lastName"
+                value={formData.lastName}
                 onChange={handleInputChange}
+                className="w-full px-4 py-2 rounded-lg border border-[#4F5B62] focus:outline-none focus:border-[#B5A48B] text-[#1D1D1D]"
                 required
-                className="w-full px-6 py-4 text-lg rounded-lg border border-[#717C84] focus:outline-none focus:border-[#D4C5B3] focus:ring-2 focus:ring-[#D4C5B3]/20 transition-all bg-[#1D2B34] text-[#D4C5B3] placeholder-[#717C84]"
               />
             </div>
-            <div>
-              <input
-                type="password"
-                name="confirmPassword"
-                placeholder="Confirm password"
-                value={formData.confirmPassword}
-                onChange={handleInputChange}
-                required
-                className="w-full px-6 py-4 text-lg rounded-lg border border-[#717C84] focus:outline-none focus:border-[#D4C5B3] focus:ring-2 focus:ring-[#D4C5B3]/20 transition-all bg-[#1D2B34] text-[#D4C5B3] placeholder-[#717C84]"
-              />
-            </div>
+          </div>
 
-            {/* Submit Button */}
-            <button
-              type="submit"
-              className="w-full px-6 py-4 text-lg bg-[#D4C5B3] text-[#1A1A1A] font-medium rounded-lg shadow-md hover:bg-[#B7B8B9] transform hover:-translate-y-0.5 transition-all hover:shadow-lg"
-            >
-              Create account
-            </button>
+          <div className="space-y-2">
+            <label htmlFor="email" className="block text-[#1D1D1D] font-medium">
+              Email
+            </label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={formData.email}
+              onChange={handleInputChange}
+              className="w-full px-4 py-2 rounded-lg border border-[#4F5B62] focus:outline-none focus:border-[#B5A48B] text-[#1D1D1D]"
+              required
+            />
+          </div>
 
-            {/* Login Link */}
-            <div className="text-center mt-6">
-              <p className="text-[#D4C5B3]">
-                Already a member?{' '}
-                <button
-                  type="button"
-                  onClick={handleLoginClick}
-                  className="text-[#B7B8B9] hover:text-white underline focus:outline-none"
-                >
-                  Login here
-                </button>
-              </p>
-            </div>
-          </form>
-        </div>
+          <div className="space-y-2">
+            <label htmlFor="password" className="block text-[#1D1D1D] font-medium">
+              Password
+            </label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              value={formData.password}
+              onChange={handleInputChange}
+              className="w-full px-4 py-2 rounded-lg border border-[#4F5B62] focus:outline-none focus:border-[#B5A48B] text-[#1D1D1D]"
+              required
+            />
+          </div>
+
+          <div className="space-y-2">
+            <label htmlFor="confirmPassword" className="block text-[#1D1D1D] font-medium">
+              Confirm Password
+            </label>
+            <input
+              type="password"
+              id="confirmPassword"
+              name="confirmPassword"
+              value={formData.confirmPassword}
+              onChange={handleInputChange}
+              className="w-full px-4 py-2 rounded-lg border border-[#4F5B62] focus:outline-none focus:border-[#B5A48B] text-[#1D1D1D]"
+              required
+            />
+          </div>
+
+          <button
+            type="submit"
+            className="w-full py-3 bg-[#B5A48B] text-[#1D1D1D] font-semibold rounded-lg hover:bg-[#A4B0BC] transition-all duration-300"
+          >
+            Create Account
+          </button>
+
+          <p className="text-[#2D3436] text-center mt-4">
+            Already have an account?{' '}
+            <Link href="/login" className="text-[#B5A48B] hover:text-[#A4B0BC] font-medium text-decoration-line: underline">
+              Login here
+            </Link>
+          </p>
+        </form>
       </div>
     </div>
   );
