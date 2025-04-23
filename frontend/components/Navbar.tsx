@@ -2,25 +2,47 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 export default function Navbar() {
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
+  const router = useRouter();
 
   const handleNavButtonClick = (buttonName: string) => {
-    console.log(buttonName);
+    switch (buttonName) {
+      case 'Closet':
+        router.push('/closet');
+        break;
+      case 'AI Advice':
+        router.push('/ai-advice');
+        break;
+      case 'Upload Clothing':
+        router.push('/upload');
+        break;
+      case 'Inspiration':
+        router.push('/inspiration');
+        break;
+    }
   };
 
   const handleProfileOption = (option: string) => {
-    console.log(option);
+    switch (option) {
+      case 'User Profile':
+        router.push('/profile');
+        break;
+      case 'Sign Out':
+        router.push('/login');
+        break;
+    }
     setIsProfileMenuOpen(false);
   };
 
   return (
     <nav className="w-full bg-[#1D1D1D] px-6 py-4 flex items-center justify-between shadow-lg">
       {/* Logo/Brand */}
-      <div className="text-[#B5A48B] text-xl font-bold">
+      <Link href="/home" className="text-[#B5A48B] text-xl font-bold hover:text-[#A4B0BC] transition-colors">
         Thread Bros
-      </div>
+      </Link>
 
       {/* Navigation Buttons */}
       <div className="flex items-center space-x-6">

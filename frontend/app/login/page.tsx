@@ -92,7 +92,7 @@ export default function LoginPage() {
 
       {/* Bypass Login Button */}
       <div className="absolute bottom-4 right-4 z-30">
-        <Link href="/upload" legacyBehavior>
+        <Link href="/home" legacyBehavior>
           <a className="px-4 py-2 bg-[#B5A48B] text-[#1D1D1D] text-sm font-semibold rounded-lg hover:bg-[#A4B0BC] transition-all duration-300 transform hover:scale-105 shadow-lg border border-white">
             Bypass Login
           </a>
