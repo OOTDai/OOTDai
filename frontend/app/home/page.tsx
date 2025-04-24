@@ -75,7 +75,7 @@ export default function HomePage() {
               <source src="/videos/shirtRack.mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
-            <div className="absolute inset-0 bg-black bg-opacity-40 flex flex-col items-center justify-center">
+            <div className="absolute inset-0 bg-black bg-opacity-20 flex flex-col items-center justify-center">
               <h2 className="text-4xl font-bold text-white mb-4 text-center px-4">
                 Don&apos;t Stress About What to Wear
               </h2>

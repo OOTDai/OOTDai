@@ -37,7 +37,7 @@ export default function LoginPage() {
       </video>
 
       {/* Dark Overlay */}
-      <div className="absolute inset-0 bg-black bg-opacity-40 z-10"></div>
+      <div className="absolute inset-0 bg-black bg-opacity-10 z-10"></div>
 
       {/* Login Form Container */}
       <div className="absolute top-0 right-0 w-1/3 h-full bg-white bg-opacity-90 z-20 flex flex-col justify-center px-8">
