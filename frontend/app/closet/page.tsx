@@ -13,28 +13,28 @@ export default function ClosetPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#1D1D1D]">
+    <div className="min-h-screen bg-gradient-to-b from-white via-[#B5A48B]/30 to-[#B5A48B]/50">
       <Navbar />
       
       <div className="container mx-auto px-4 py-8">
         {/* Header Section */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-[#B5A48B] mb-2">Your Closet</h1>
-          <p className="text-[#A4B0BC]">Manage and organize your wardrobe</p>
+          <h1 className="text-3xl font-bold text-[#1D1D1D] mb-2">Your Closet</h1>
+          <p className="text-[#4F5B62]">Manage and organize your wardrobe</p>
         </div>
 
         {/* Filter Section */}
         <div className="flex gap-4 mb-8">
-          <button className="px-4 py-2 bg-[#2D3436] text-[#B5A48B] rounded-lg hover:bg-[#3D4446] transition-colors">
+          <button className="px-4 py-2 bg-white text-[#1D1D1D] rounded-lg hover:bg-[#B5A48B] transition-colors border border-[#B5A48B]">
             All Items
           </button>
-          <button className="px-4 py-2 bg-[#2D3436] text-[#B5A48B] rounded-lg hover:bg-[#3D4446] transition-colors">
+          <button className="px-4 py-2 bg-white text-[#1D1D1D] rounded-lg hover:bg-[#B5A48B] transition-colors border border-[#B5A48B]">
             Tops
           </button>
-          <button className="px-4 py-2 bg-[#2D3436] text-[#B5A48B] rounded-lg hover:bg-[#3D4446] transition-colors">
+          <button className="px-4 py-2 bg-white text-[#1D1D1D] rounded-lg hover:bg-[#B5A48B] transition-colors border border-[#B5A48B]">
             Bottoms
           </button>
-          <button className="px-4 py-2 bg-[#2D3436] text-[#B5A48B] rounded-lg hover:bg-[#3D4446] transition-colors">
+          <button className="px-4 py-2 bg-white text-[#1D1D1D] rounded-lg hover:bg-[#B5A48B] transition-colors border border-[#B5A48B]">
             Outerwear
           </button>
         </div>
@@ -42,18 +42,19 @@ export default function ClosetPage() {
         {/* Clothing Grid */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {clothingItems.map((item) => (
-            <div key={item.id} className="bg-[#2D3436] rounded-lg overflow-hidden shadow-lg">
+            <div key={item.id} className="bg-white rounded-lg overflow-hidden shadow-lg border border-[#B5A48B]">
               <div className="relative h-64">
                 <Image
                   src={item.image}
                   alt={item.name}
                   fill
                   style={{ objectFit: 'cover' }}
+                  className="border-b border-[#B5A48B]"
                 />
               </div>
               <div className="p-4">
-                <h3 className="text-[#B5A48B] font-semibold">{item.name}</h3>
-                <p className="text-[#A4B0BC] text-sm">{item.category}</p>
+                <h3 className="text-[#1D1D1D] font-semibold">{item.name}</h3>
+                <p className="text-[#4F5B62] text-sm">{item.category}</p>
               </div>
             </div>
           ))}
@@ -63,7 +64,7 @@ export default function ClosetPage() {
         <div className="fixed bottom-8 right-8">
           <button 
             onClick={() => window.location.href = '/upload'}
-            className="bg-[#B5A48B] text-[#1D1D1D] px-6 py-3 rounded-full font-semibold shadow-lg hover:bg-[#A4B0BC] transition-all duration-300 flex items-center gap-2"
+            className="bg-[#B5A48B] text-[#1D1D1D] px-6 py-3 rounded-full font-semibold shadow-lg hover:bg-[#A4B0BC] transition-all duration-300 flex items-center gap-2 border-2 border-white"
           >
             <span>Add Item</span>
             <span className="text-2xl">+</span>

@@ -38,9 +38,9 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="w-full bg-[#1D1D1D] px-6 py-4 flex items-center justify-between shadow-lg">
+    <nav className="w-full bg-white px-6 py-4 flex items-center justify-between shadow-lg border-b border-[#B5A48B]">
       {/* Logo/Brand */}
-      <Link href="/home" className="text-[#B5A48B] text-xl font-bold hover:text-[#A4B0BC] transition-colors">
+      <Link href="/home" className="text-[#1D1D1D] text-xl font-bold hover:text-[#B5A48B] transition-colors">
         Thread Bros
       </Link>
 
@@ -48,25 +48,25 @@ export default function Navbar() {
       <div className="flex items-center space-x-6">
         <button
           onClick={() => handleNavButtonClick('Closet')}
-          className="text-[#A4B0BC] hover:text-[#B5A48B] transition-colors px-3 py-1"
+          className="text-[#4F5B62] hover:text-[#B5A48B] transition-colors px-3 py-1"
         >
           Closet
         </button>
         <button
           onClick={() => handleNavButtonClick('AI Advice')}
-          className="text-[#A4B0BC] hover:text-[#B5A48B] transition-colors px-3 py-1"
+          className="text-[#4F5B62] hover:text-[#B5A48B] transition-colors px-3 py-1"
         >
           AI Advice
         </button>
         <button
           onClick={() => handleNavButtonClick('Upload Clothing')}
-          className="text-[#A4B0BC] hover:text-[#B5A48B] transition-colors px-3 py-1"
+          className="text-[#4F5B62] hover:text-[#B5A48B] transition-colors px-3 py-1"
         >
           Upload Clothing
         </button>
         <button
           onClick={() => handleNavButtonClick('Inspiration')}
-          className="text-[#A4B0BC] hover:text-[#B5A48B] transition-colors px-3 py-1"
+          className="text-[#4F5B62] hover:text-[#B5A48B] transition-colors px-3 py-1"
         >
           Inspiration
         </button>
@@ -76,21 +76,21 @@ export default function Navbar() {
       <div className="relative">
         <button
           onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
-          className="w-10 h-10 rounded-full bg-gradient-to-br from-[#2D3436] to-[#4F5B62] border-2 border-[#B5A48B] focus:outline-none"
+          className="w-10 h-10 rounded-full bg-[#B5A48B] border-2 border-white focus:outline-none hover:bg-[#A4B0BC] transition-colors"
         />
         
         {/* Profile Dropdown Menu */}
         {isProfileMenuOpen && (
-          <div className="absolute right-0 mt-2 w-48 bg-[#2D3436] rounded-lg shadow-lg py-2 border border-[#4F5B62]">
+          <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 border border-[#B5A48B]">
             <button
               onClick={() => handleProfileOption('User Profile')}
-              className="block w-full text-left px-4 py-2 text-[#A4B0BC] hover:bg-[#1D1D1D] hover:text-[#B5A48B] transition-colors"
+              className="block w-full text-left px-4 py-2 text-[#4F5B62] hover:bg-[#B5A48B] hover:text-[#1D1D1D] transition-colors"
             >
               User Profile
             </button>
             <button
               onClick={() => handleProfileOption('Sign Out')}
-              className="block w-full text-left px-4 py-2 text-[#A4B0BC] hover:bg-[#1D1D1D] hover:text-[#B5A48B] transition-colors"
+              className="block w-full text-left px-4 py-2 text-[#4F5B62] hover:bg-[#B5A48B] hover:text-[#1D1D1D] transition-colors"
             >
               Sign Out
             </button>

@@ -170,16 +170,16 @@ export default function Home() {
 
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#1D1D1D] via-[#2D3436] to-[#4F5B62]">
+    <div className="min-h-screen bg-gradient-to-b from-white via-[#B5A48B]/30 to-[#B5A48B]/50">
       <Navbar />
-      <div className="flex flex-col items-center justify-start p-6 text-white">
+      <div className="flex flex-col items-center justify-start p-6 text-[#1D1D1D]">
         {/* Title and Excerpt */}
         <div className="flex flex-col items-center mt-10 text-center">
-          <h1 className="text-4xl font-bold mb-2">The Thread Bros</h1>
-          <p className="text-lg text-gray-300 mb-6 max-w-md">
+          <h1 className="text-4xl font-bold mb-2 text-[#1D1D1D]">The Thread Bros</h1>
+          <p className="text-lg text-[#4F5B62] mb-6 max-w-md">
             Just a bunch of dudes coming together to create a fashion app for styling your sweet baggy jeans.
           </p>
-          <div className="text-gray-300 text-sm mt-2">
+          <div className="text-[#4F5B62] text-sm mt-2">
             <p>Upload an image of an article of clothing</p>
           </div>
         </div>
@@ -187,8 +187,8 @@ export default function Home() {
         {/* Image Upload Area */}
         <div className="flex flex-col items-center w-full max-w-lg my-4">
           <div
-            className={`relative w-full h-64 border-4 border-dashed rounded-lg flex flex-col items-center justify-center p-4 text-center transition-colors duration-200 ease-in-out ${
-              isDragging ? 'border-[#B5A48B] bg-[#2D3436] bg-opacity-50' : 'border-[#4F5B62] hover:border-[#B5A48B]'
+            className={`relative w-full h-64 border-2 rounded-lg flex flex-col items-center justify-center p-4 text-center transition-colors duration-200 ease-in-out ${
+              isDragging ? 'border-[#B5A48B] bg-[#F5F5F5]' : 'border-[#B5A48B] hover:border-[#A4B0BC]'
             } ${imagePreviewUrl ? '' : 'cursor-pointer'}`}
             onDragOver={handleDragOver}
             onDragLeave={handleDragLeave}
@@ -199,20 +199,20 @@ export default function Home() {
               <>
                 <img src={imagePreviewUrl} alt="Image preview" className="max-h-full max-w-full object-contain rounded" />
                 <div
-                  className="absolute inset-0 bg-[#1D1D1D] bg-opacity-50 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300 rounded cursor-pointer"
+                  className="absolute inset-0 bg-white bg-opacity-50 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300 rounded cursor-pointer"
                   onClick={triggerFileInput}
                 >
-                  <span className="text-[#B5A48B] text-lg font-semibold pointer-events-none">Click or drop to replace</span>
+                  <span className="text-[#1D1D1D] text-lg font-semibold pointer-events-none">Click or drop to replace</span>
                 </div>
               </>
             ) : (
-              <div className="text-[#A4B0BC] pointer-events-none">
+              <div className="text-[#4F5B62] pointer-events-none">
                 <p>Drag & drop an image here</p>
                 <p className="my-2">or</p>
                 <button
                   type="button"
                   onClick={(e) => { e.stopPropagation(); triggerFileInput(); }}
-                  className="px-4 py-2 bg-[#4F5B62] text-[#B5A48B] rounded hover:bg-[#2D3436] transition-colors pointer-events-auto border border-[#B5A48B]"
+                  className="px-4 py-2 bg-[#B5A48B] text-[#1D1D1D] rounded hover:bg-[#A4B0BC] transition-colors pointer-events-auto border border-white"
                 >
                   Select Image
                 </button>
@@ -231,17 +231,17 @@ export default function Home() {
             <div className="flex space-x-4 mt-4">
               <button
                 onClick={clearImage}
-                className="px-4 py-2 bg-[#2D3436] text-[#A4B0BC] rounded hover:bg-[#1D1D1D] transition-colors border border-[#4F5B62]"
+                className="px-4 py-2 bg-white text-[#1D1D1D] rounded hover:bg-[#F5F5F5] transition-colors border border-[#B5A48B]"
                 disabled={isLoading}
               >
                 Clear Image
               </button>
               <button
                 onClick={handleSubmit}
-                className={`px-4 py-2 rounded transition-colors border ${
+                className={`px-4 py-2 rounded transition-colors ${
                   isLoading 
-                  ? 'bg-[#2D3436] text-[#4F5B62] cursor-not-allowed border-[#4F5B62]' 
-                  : 'bg-[#B5A48B] text-[#1D1D1D] hover:bg-[#A4B0BC] border-[#4F5B62]'
+                  ? 'bg-[#F5F5F5] text-[#4F5B62] cursor-not-allowed border border-[#B5A48B]' 
+                  : 'bg-[#B5A48B] text-[#1D1D1D] hover:bg-[#A4B0BC] border-2 border-white'
                 }`}
                 disabled={isLoading}
               >
@@ -249,18 +249,15 @@ export default function Home() {
               </button>
             </div>
           )}
-        </div>
 
-        {/* Analysis Result Area */}
-        {isLoading && (
-          <div className="mt-4 text-lg text-[#B5A48B]">Analyzing image, please wait...</div>
-        )}
-        {analysisResult && !isLoading && (
-          <div className="mt-6 w-full max-w-lg p-4 bg-[#2D3436] rounded-lg shadow border border-[#4F5B62]">
-            <h2 className="text-xl font-semibold mb-2 text-[#B5A48B]">Analysis Result:</h2>
-            <p className="text-[#A4B0BC] whitespace-pre-wrap">{analysisResult}</p>
-          </div>
-        )}
+          {/* Analysis Result */}
+          {analysisResult && (
+            <div className="mt-6 p-4 bg-white rounded-lg border border-[#B5A48B] w-full">
+              <h3 className="text-[#1D1D1D] font-semibold mb-2">Analysis Result:</h3>
+              <p className="text-[#4F5B62]">{analysisResult}</p>
+            </div>
+          )}
+        </div>
 
         {/* Test Backend Button */}
         <div className="w-full flex justify-end p-6 absolute bottom-0 right-0">
